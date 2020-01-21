@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
 import com.RestAPI.hosteloha.model.ProductPricing;
@@ -23,8 +24,10 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private ProductInputDAO product;
 	
-	@GetMapping("/prodcuts")
+	@GetMapping("/products")
 	public List<Product> getAllProducts() {
 		
 		List<Product> allProducts = productService.getAllProducts();
@@ -32,8 +35,9 @@ public class ProductController {
 	}
 	
 	@PostMapping("/products")
-	public ResponseEntity<Object> addProduct(@RequestBody Product product) {
+	public ResponseEntity<Object> addOneProduct(@RequestBody ProductInputDAO product) {
 		
+	
 		Product addedProduct = productService.addProduct(product);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedProduct.getId()).toUri();

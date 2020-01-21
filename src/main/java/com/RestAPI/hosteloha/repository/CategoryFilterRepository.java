@@ -16,7 +16,7 @@ public interface CategoryFilterRepository extends JpaRepository<CategoryFilter, 
 	@Query(value= "select distinct category_name from category_filter", nativeQuery = true)
 	List<String> findByCategoryName();
 
-	@Query(value= "select subcategory1 from catgory_filter where category_name = : categoryname" , nativeQuery = true)
+	@Query(value= "select subcategory1 from category_filter where category_name = : categoryname" , nativeQuery = true)
 	List<String> getsubCategoryByCategory(@Param("categoryname") String categoryname);
 
 	

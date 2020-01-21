@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.RestAPI.hosteloha.DAO.UserWishListOutputDAO;
+import com.RestAPI.hosteloha.model.Roles;
 import com.RestAPI.hosteloha.model.SellerFollower;
 import com.RestAPI.hosteloha.model.User;
 import com.RestAPI.hosteloha.model.UserPrivacy;
@@ -38,7 +40,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/addUser")
+	@PostMapping("/users")
 	public ResponseEntity<Object> addUser(@RequestBody User user) {
 		
 //		User user= new User( 100001,  2,  2, 6374637, "password11", "vinay",
@@ -74,6 +76,20 @@ public class UserController {
 				
 	}
 	
+	@GetMapping("/roles")
+	public List<Roles> getRoles() {
+		List<Roles> roles = userService.getRoles();
+		return roles;
+	}
+	
+	@PostMapping("/roles")
+	public ResponseEntity<Object> addRole(@RequestBody Roles role) {
+		
+		Roles addedRole = userService.addNewRole(role);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedRole.getId()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+	
 	@GetMapping("/userreviews")
 	public List<UserReview> getallreviews() {
 		
@@ -83,7 +99,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/getsellerreview/{id}")
+	@GetMapping("/userreviews/{id}")
 	public List<UserReview> getSellerReview(@PathVariable int id) {
 		
 		List<UserReview> getallreviewsByID = userService.getallreviewsByID(id);
@@ -99,6 +115,15 @@ public class UserController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedreview.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
+	
+	@PostMapping("/userreviews/updateupvotes") 
+	public int updateUpvotes(@RequestBody UserReview review) {
+		
+		int updatedUpvotes = userService.updateUpvotes(review);
+		
+		return updatedUpvotes;
+	}
+	
 	
 	@GetMapping("/sellerFollowers/{sellerID}")
 	public List<SellerFollower> getSellerFollowers(@PathVariable int sellerID) {
@@ -116,18 +141,11 @@ public class UserController {
 		return addedFollower;
 	}
 	
-	@PostMapping("/userreviews/updateupvotes") 
-	public int updateUpvotes(@RequestBody UserReview review) {
-		
-		int updatedUpvotes = userService.updateUpvotes(review);
-		
-		return updatedUpvotes;
-	}
-	
+
 	@GetMapping("/{userid}/wishlist")
-	public List<UserProductWishlist> getUserWishList(@PathVariable int userid) {
-		
-		List<UserProductWishlist> userWishlist = userService.getUserWishlist(userid);
+	public UserWishListOutputDAO getUserWishList(@PathVariable int userid) {
+	
+		UserWishListOutputDAO userWishlist = userService.getUserWishlist(userid);
 		return userWishlist;
 	}
 	
@@ -138,6 +156,4 @@ public class UserController {
 		return new ResponseEntity<UserProductWishlist>(HttpStatus.CREATED);
 	}
 	
-	
-
 }

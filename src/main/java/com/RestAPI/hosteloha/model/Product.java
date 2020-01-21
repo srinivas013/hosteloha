@@ -4,12 +4,17 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
+//@SequenceGenerator(name="seq", initialValue=100000, allocationSize=900000)
 public class Product {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String subtitle;
 	private String description;
@@ -132,6 +137,15 @@ public class Product {
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", subtitle=" + subtitle + ", description=" + description + ", category_id="
+				+ category_id + ", users_id=" + users_id + ", condition_id=" + condition_id + ", delivery_format_id="
+				+ delivery_format_id + ", payment_option_id=" + payment_option_id + ", selling_format_id="
+				+ selling_format_id + ", inserted_at=" + inserted_at + ", updated_at=" + updated_at + "]";
+	}
+	
 	
 
 }
