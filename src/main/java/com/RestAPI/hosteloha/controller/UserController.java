@@ -3,6 +3,7 @@ package com.RestAPI.hosteloha.controller;
 import java.net.URI;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,17 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/users/{id}")
+	public Optional<User> getUserById(@PathVariable int id) {
+		
+		Optional<User> userById = userService.getUserById(id);
+		
+		return userById;
+		
+	}
+	
+	
+	
 	@PostMapping("/users")
 	public ResponseEntity<Object> addUser(@RequestBody User user) {
 		
@@ -54,6 +66,7 @@ public class UserController {
 		
 		return ResponseEntity.created(location).build();
 	}
+	
 	
 	@GetMapping("/userprivacy")
 	public List<UserPrivacy> getAllUserPrivacy() {

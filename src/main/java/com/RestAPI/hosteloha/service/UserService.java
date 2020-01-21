@@ -2,6 +2,7 @@ package com.RestAPI.hosteloha.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -169,5 +170,11 @@ public class UserService {
 		
 		Roles savedRole = rolesRepo.save(role);
 		return savedRole;
+	}
+
+	public Optional<User> getUserById(int id) {
+		
+		Optional<User> findById = userRepo.findById(id);
+		return findById;
 	}
 }
