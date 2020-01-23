@@ -7,31 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name ="product_condition")
-public class Condition {
+public class Coupons {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String code;
 	private String description;
+	private int value;
+	private int is_active;
+	private int is_multiple;
 	@Column(insertable = false)
 	private Timestamp inserted_at;
 	@Column(insertable = false)
 	private Timestamp updated_at;
 	
-	public Condition() {
+	public Coupons() {
 		super();
 	}
 
-	public Condition(int id, String name, String description, Timestamp inserted_at, Timestamp updated_at) {
+	public Coupons(int id, String code, String description, int value, int is_active, int is_multiple,
+			Timestamp inserted_at, Timestamp updated_at) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.code = code;
 		this.description = description;
+		this.value = value;
+		this.is_active = is_active;
+		this.is_multiple = is_multiple;
 		this.inserted_at = inserted_at;
 		this.updated_at = updated_at;
 	}
@@ -44,12 +49,12 @@ public class Condition {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDescription() {
@@ -60,6 +65,30 @@ public class Condition {
 		this.description = description;
 	}
 
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public int getIs_active() {
+		return is_active;
+	}
+
+	public void setIs_active(int is_active) {
+		this.is_active = is_active;
+	}
+
+	public int getIs_multiple() {
+		return is_multiple;
+	}
+
+	public void setIs_multiple(int is_multiple) {
+		this.is_multiple = is_multiple;
+	}
+
 	public Timestamp getInserted_at() {
 		return inserted_at;
 	}
@@ -68,13 +97,12 @@ public class Condition {
 		this.inserted_at = inserted_at;
 	}
 
-	public Timestamp getupdated_at() {
+	public Timestamp getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setupdated_at(Timestamp updated_at) {
+	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
-	
 	
 }

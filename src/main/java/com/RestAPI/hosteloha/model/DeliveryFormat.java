@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="product_condition")
-public class Condition {
+@Table(name = "delivery_format")
+public class DeliveryFormat {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,10 @@ public class Condition {
 	private Timestamp inserted_at;
 	@Column(insertable = false)
 	private Timestamp updated_at;
-	
-	public Condition() {
+	public DeliveryFormat() {
 		super();
 	}
-
-	public Condition(int id, String name, String description, Timestamp inserted_at, Timestamp updated_at) {
+	public DeliveryFormat(int id, String name, String description, Timestamp inserted_at, Timestamp updated_at) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -35,44 +33,34 @@ public class Condition {
 		this.inserted_at = inserted_at;
 		this.updated_at = updated_at;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public Timestamp getInserted_at() {
 		return inserted_at;
 	}
-
 	public void setInserted_at(Timestamp inserted_at) {
 		this.inserted_at = inserted_at;
 	}
-
-	public Timestamp getupdated_at() {
+	public Timestamp getUpdated_at() {
 		return updated_at;
 	}
-
-	public void setupdated_at(Timestamp updated_at) {
+	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
 	

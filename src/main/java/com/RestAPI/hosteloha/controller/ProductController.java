@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
+import com.RestAPI.hosteloha.model.CategoryFilter;
+import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
 import com.RestAPI.hosteloha.model.ProductPricing;
@@ -52,10 +54,10 @@ public class ProductController {
 	}
 	
 	@PostMapping("/condition")
-	public Condition addCondition(@RequestBody Condition condition) {
+	public ResponseEntity<Object> addCondition(@RequestBody Condition condition) {
 		
 		Condition addedCondition = productService.addCondition(condition);
-		return addedCondition;
+		return new ResponseEntity<Object>(addedCondition, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/productPricing")
@@ -91,4 +93,21 @@ public class ProductController {
 		
 		return productService.getsubCategoryBySubCategory(subcategory1);
 	}
-}
+	
+	@PostMapping("/addSubCategory1") 
+	public ResponseEntity<Object> addSubcategory1(@RequestBody CategoryFilter categoryFilter) {
+		
+		CategoryFilter addedSubCategory1 = productService.addSubCategory1(categoryFilter);
+		return new ResponseEntity<Object>(addedSubCategory1, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addSubCategory2") 
+	public ResponseEntity<Object> addSubcategory2(@RequestBody CategorySubFilter categorySubFilter) {
+		
+		CategorySubFilter addedSubCategory2 = productService.addSubCategory2(categorySubFilter);
+		return new ResponseEntity<Object>(addedSubCategory2, HttpStatus.CREATED);
+	}
+	
+}	
+	
+	

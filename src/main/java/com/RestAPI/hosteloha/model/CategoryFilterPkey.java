@@ -7,6 +7,6 @@ import javax.persistence.Id;
 
 public class CategoryFilterPkey implements Serializable {
 	
-	private String CategoryName;
-	private String SubCategory;
+	private String categoryName;
+	private String subCategory;
 }

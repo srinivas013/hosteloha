@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.Category;
+import com.RestAPI.hosteloha.model.CategoryFilter;
+import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
 import com.RestAPI.hosteloha.model.ProductPricing;
@@ -127,6 +129,19 @@ public class ProductService {
 		
 		List<String> subcategorylistbySubCategory = subcategoryFilterRepo.getsubCategoryBySubCategory(subcategory1);
 		return subcategorylistbySubCategory;
+	}
+
+	public CategoryFilter addSubCategory1(CategoryFilter categoryFilter) {
+
+		CategoryFilter savedsubcategory1 = categoryFilterRepo.save(categoryFilter);
+		return savedsubcategory1;
+	}
+
+	public CategorySubFilter addSubCategory2(CategorySubFilter categorySubFilter) {
+
+		  CategorySubFilter savedsubcategory2 = subcategoryFilterRepo.save(categorySubFilter);
+		return savedsubcategory2;
+		
 	}
 	
 }

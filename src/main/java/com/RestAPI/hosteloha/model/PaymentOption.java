@@ -10,28 +10,31 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="product_condition")
-public class Condition {
+@Table(name = "payment_option")
+public class PaymentOption {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;
+	private int coupons_id;
 	@Column(insertable = false)
 	private Timestamp inserted_at;
 	@Column(insertable = false)
 	private Timestamp updated_at;
 	
-	public Condition() {
+	public PaymentOption() {
 		super();
 	}
 
-	public Condition(int id, String name, String description, Timestamp inserted_at, Timestamp updated_at) {
+	public PaymentOption(int id, String name, String description, int coupons_id, Timestamp inserted_at,
+			Timestamp updated_at) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.coupons_id = coupons_id;
 		this.inserted_at = inserted_at;
 		this.updated_at = updated_at;
 	}
@@ -60,6 +63,14 @@ public class Condition {
 		this.description = description;
 	}
 
+	public int getCoupons_id() {
+		return coupons_id;
+	}
+
+	public void setCoupons_id(int coupons_id) {
+		this.coupons_id = coupons_id;
+	}
+
 	public Timestamp getInserted_at() {
 		return inserted_at;
 	}
@@ -68,11 +79,11 @@ public class Condition {
 		this.inserted_at = inserted_at;
 	}
 
-	public Timestamp getupdated_at() {
+	public Timestamp getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setupdated_at(Timestamp updated_at) {
+	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
 	

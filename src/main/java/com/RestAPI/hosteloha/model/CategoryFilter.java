@@ -13,12 +13,14 @@ import javax.persistence.Table;
 @Table(name = "category_filter")
 public class CategoryFilter {
 	
+
+	@Id
 	@Column(name = "category_name")
+	private String categoryName;
+	
 	@Id
-	private String CategoryName;
-	@Column(name = "subcategory1")
-	@Id
-	private String SubCategory;
+	@Column(name = "sub_category1")
+	private String subCategory;
 	@Column(insertable = false)
 	private Timestamp inserted_at;
 	@Column(insertable = false)
@@ -30,26 +32,26 @@ public class CategoryFilter {
 
 	public CategoryFilter(String categoryName, String subCategory, Timestamp inserted_at, Timestamp updated_at) {
 		super();
-		CategoryName = categoryName;
-		SubCategory = subCategory;
+		this.categoryName = categoryName;
+		this.subCategory = subCategory;
 		this.inserted_at = inserted_at;
 		Updated_at = updated_at;
 	}
 
 	public String getCategoryName() {
-		return CategoryName;
+		return categoryName;
 	}
 
 	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
+		this.categoryName = categoryName;
 	}
 
 	public String getSubCategory() {
-		return SubCategory;
+		return subCategory;
 	}
 
 	public void setSubCategory(String subCategory) {
-		SubCategory = subCategory;
+		this.subCategory = subCategory;
 	}
 
 	public Timestamp getInserted_at() {
@@ -67,6 +69,7 @@ public class CategoryFilter {
 	public void setUpdated_at(Timestamp updated_at) {
 		Updated_at = updated_at;
 	}
+
 	
 }
 
