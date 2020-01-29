@@ -52,7 +52,7 @@ public class UserController {
 	
 	
 	
-	@PostMapping("/users")
+	@PostMapping("/add_user")
 	public ResponseEntity<Object> addUser(@RequestBody User user) {
 		
 //		User user= new User( 100001,  2,  2, 6374637, "password11", "vinay",
@@ -62,9 +62,9 @@ public class UserController {
 		
 		User saveduser = userService.addNewUser(user);
 		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saveduser.getId()).toUri();
+		//URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saveduser.getId()).toUri();
 		
-		return ResponseEntity.created(location).build();
+		return new ResponseEntity<Object>(saveduser, HttpStatus.CREATED);
 	}
 	
 	

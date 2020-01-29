@@ -36,14 +36,14 @@ public class ProductController {
 		return allProducts;
 	}
 	
-	@PostMapping("/products")
+	@PostMapping("/add_product")
 	public ResponseEntity<Object> addOneProduct(@RequestBody ProductInputDAO product) {
 		
 	
 		Product addedProduct = productService.addProduct(product);
 		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedProduct.getId()).toUri();
-		return ResponseEntity.created(location).build();
+		//URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedProduct.getId()).toUri();
+		return new ResponseEntity<Object>(addedProduct, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/condition")
@@ -53,14 +53,14 @@ public class ProductController {
 		return allProductCondition;
 	}
 	
-	@PostMapping("/condition")
+	@PostMapping("/add_condition")
 	public ResponseEntity<Object> addCondition(@RequestBody Condition condition) {
 		
 		Condition addedCondition = productService.addCondition(condition);
 		return new ResponseEntity<Object>(addedCondition, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/productPricing")
+	@PostMapping("/add_productPricing")
 	public ResponseEntity<ProductPricing> addProductPricing(@RequestBody ProductPricing price ) {
 		
 		ProductPricing addedProductPrice = productService.addProductPricing(price);
