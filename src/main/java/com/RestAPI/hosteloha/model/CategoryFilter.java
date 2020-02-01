@@ -9,8 +9,8 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(CategoryFilterPkey.class)
 @Table(name = "category_filter")
+@IdClass(CategoryFilterPkey.class)
 public class CategoryFilter {
 	
 
@@ -68,6 +68,12 @@ public class CategoryFilter {
 
 	public void setUpdated_at(Timestamp updated_at) {
 		Updated_at = updated_at;
+	}
+
+	@Override
+	public String toString() {
+		return "CategoryFilter [categoryName=" + categoryName + ", subCategory=" + subCategory + ", inserted_at="
+				+ inserted_at + ", Updated_at=" + Updated_at + "]";
 	}
 
 	

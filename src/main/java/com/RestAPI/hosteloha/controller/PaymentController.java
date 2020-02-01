@@ -27,7 +27,7 @@ public class PaymentController {
 		return paymentOptions;
 	}
 	
-	@PostMapping("/payment_option") 
+	@PostMapping("/add_payment_option") 
 	public ResponseEntity<Object> addPaymentOption(@RequestBody PaymentOption paymentoption) {
 		PaymentOption addPaymentOption = paymentService.addPaymentOption(paymentoption);
 		//return new ResponseEntity<Object>(HttpStatus.CREATED);

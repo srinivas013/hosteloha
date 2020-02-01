@@ -9,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.CategoryFilter;
+import com.RestAPI.hosteloha.model.CategoryList;
 import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
@@ -46,7 +48,7 @@ public class ProductController {
 		return new ResponseEntity<Object>(addedProduct, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/condition")
+	@GetMapping("/product_condition")
 	public List<Condition> getAllProductCondition() {
 		
 		List<Condition> allProductCondition = productService.getAllProductCondition();
@@ -108,6 +110,22 @@ public class ProductController {
 		return new ResponseEntity<Object>(addedSubCategory2, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/addCategoryList")
+	public ResponseEntity<Object> addCategoryList(@RequestBody CategoryList categorylist) {
+		
+		String result = productService.addCategoryList(categorylist);
+		
+		return new ResponseEntity<Object>(result, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/product_views/{product_id}")
+	public ResponseEntity<Object> updateProductViews(@PathVariable int product_id) {
+		
+		int updateProductViews = productService.updateProductViews(product_id);
+		return new ResponseEntity<Object>(updateProductViews, HttpStatus.OK);
+	}
+	
+		
 }	
 	
 	
