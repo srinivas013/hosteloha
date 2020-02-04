@@ -11,18 +11,23 @@ import org.springframework.stereotype.Service;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.Category;
 import com.RestAPI.hosteloha.model.CategoryFilter;
+import com.RestAPI.hosteloha.model.CategoryList;
 import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
 import com.RestAPI.hosteloha.model.ProductPricing;
+import com.RestAPI.hosteloha.model.ProductViews;
 import com.RestAPI.hosteloha.model.UserProductWishlist;
+import com.RestAPI.hosteloha.model.ViewsHour;
 import com.RestAPI.hosteloha.repository.CategoryFilterRepository;
 import com.RestAPI.hosteloha.repository.CategoryRepository;
 import com.RestAPI.hosteloha.repository.CategorySubFilterRepository;
 import com.RestAPI.hosteloha.repository.ConditionRepository;
 import com.RestAPI.hosteloha.repository.ProductPricingRepository;
 import com.RestAPI.hosteloha.repository.ProductRepository;
+import com.RestAPI.hosteloha.repository.ProductViewsRepository;
 import com.RestAPI.hosteloha.repository.UserProductWishlistRepository;
+import com.RestAPI.hosteloha.repository.ViewsHourRepository;
 
 @Service
 @Transactional
@@ -40,6 +45,10 @@ public class ProductService {
 	private CategorySubFilterRepository subcategoryFilterRepo;
 	@Autowired
 	private CategoryRepository categoryRepo;
+	@Autowired
+	private ProductViewsRepository productViewRepo;
+	@Autowired
+	private ViewsHourRepository viewsHourRepo;
 
 
 	public List<Product> getAllProducts() {
@@ -84,6 +93,11 @@ public class ProductService {
 		product.setPayment_option_id(productInput.getPayment_option_id());
 		product.setSelling_format_id(productInput.getSelling_format_id());
 		Product savedproduct = productRepo.save(product);
+		
+		int productId= savedproduct.getId();
+		ProductViews productView = new ProductViews();
+		productView.setProduct_id(productId);
+		ProductViews savedview = productViewRepo.save(productView);
 		
 		return savedproduct;
 		
@@ -143,5 +157,46 @@ public class ProductService {
 		return savedsubcategory2;
 		
 	}
+	
+	public String addCategoryList(CategoryList categorylist) {
+		
+		String category = categorylist.getCategory();
+		String subcategory1 = categorylist.getSubcategory1();
+		String subcategory2 = categorylist.getSubcategory2();
+		
+		int checkSubCategory1 = categoryFilterRepo.checkSubCategory1(category,subcategory1);
+		
+		if(checkSubCategory1==0) {
+		CategoryFilter categoryFilter = new CategoryFilter();
+		categoryFilter.setCategoryName(category);
+		categoryFilter.setSubCategory(subcategory1);
+		categoryFilterRepo.save(categoryFilter);
+		}
+		
+		int checkSubCategory2 = subcategoryFilterRepo.checkSubCategory2(subcategory1,subcategory2);
+		
+		if(checkSubCategory2==0) {
+		CategorySubFilter categorySubFilter = new CategorySubFilter();
+		categorySubFilter.setSubcategory1(subcategory1);
+		categorySubFilter.setSubcategory2(subcategory2);
+		subcategoryFilterRepo.save(categorySubFilter);
+		}
+		return "Success";
+		
+	}
+
+	public int updateProductViews(int product_id) {
+	
+		ViewsHour viewshour = new ViewsHour();
+		viewshour.setProductid(product_id);
+		viewsHourRepo.save(viewshour);
+		
+		int getviewsHour = viewsHourRepo.getviewsHour(product_id);
+		
+		int updateAllViewCount = productViewRepo.updateAllViewCount(product_id, getviewsHour);
+		return updateAllViewCount;
+	}
+
+
 	
 }

@@ -67,5 +67,12 @@ public class CategorySubFilter {
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
+
+	@Override
+	public String toString() {
+		return "CategorySubFilter [subcategory1=" + subcategory1 + ", subcategory2=" + subcategory2 + ", inserted_at="
+				+ inserted_at + ", updated_at=" + updated_at + "]";
+	}
+	
 	
 }

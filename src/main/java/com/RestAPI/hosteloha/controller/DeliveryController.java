@@ -19,14 +19,14 @@ public class DeliveryController {
 	@Autowired
 	private DeliveryService deliveryService;
 
-	@GetMapping("/delivery-format")
+	@GetMapping("/delivery_format")
 	public List<DeliveryFormat> getDeliveryFormats() {
 		
 		List<DeliveryFormat> deliveryFormat = deliveryService.getDeliveryFormat();
 		return deliveryFormat;
 	}
 	
-	@PostMapping("/delivery-format") 
+	@PostMapping("/add_delivery_format") 
 	public ResponseEntity<Object> addDeliveryFormat(@RequestBody DeliveryFormat deliveryformat ) {
 		
 		DeliveryFormat addedDeliveryFormat = deliveryService.addDeliveryFormat(deliveryformat);
