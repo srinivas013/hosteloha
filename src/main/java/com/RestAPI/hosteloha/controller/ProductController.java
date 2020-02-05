@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +69,7 @@ public class ProductController {
 		ProductPricing addedProductPrice = productService.addProductPricing(price);
 		return new ResponseEntity<ProductPricing>(HttpStatus.CREATED);
 	}
-	
+	@Cacheable(value = "defaultCache" , key = "#productid")
 	@GetMapping("/{productid}/getPrice")
 	public List<ProductPricing> getProductPrice(@PathVariable int productid) {
 		
@@ -83,6 +84,7 @@ public class ProductController {
 		return allCategories;
 	}
 	
+	@Cacheable(value = "defaultCache" , key = "#categoryname")
 	@GetMapping("/{categoryname}/subcategory1")
 	public List<String> getsubCategoryByCategory(@PathVariable String categoryname) {
 		
@@ -90,6 +92,7 @@ public class ProductController {
 		return subcategorylistbyCategory;
 	}
 	
+	@Cacheable(value = "defaultCache" , key = "#subcategory1")
 	@GetMapping("/{subcategory1}/subcategory2")
 	public List<String> getsubCategoryBySubCategory(@PathVariable String subcategory1) {
 		

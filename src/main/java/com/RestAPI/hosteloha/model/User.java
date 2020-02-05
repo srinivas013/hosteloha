@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.cache.annotation.Cacheable;
+
 @Entity
 @Table(name="users")
 public class User {

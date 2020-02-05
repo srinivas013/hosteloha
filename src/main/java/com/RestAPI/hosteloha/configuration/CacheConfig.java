@@ -16,21 +16,21 @@ public class CacheConfig extends CachingConfigurerSupport {
 
 	@Bean
 	public net.sf.ehcache.CacheManager ehCacheManager() {
-		CacheConfiguration tenSecondCache = new CacheConfiguration();
-		tenSecondCache.setName("ten-second-cache");
-		tenSecondCache.setMemoryStoreEvictionPolicy("LRU");
-		tenSecondCache.setMaxEntriesLocalHeap(1000);
-		tenSecondCache.setTimeToLiveSeconds(10);
+		CacheConfiguration cache = new CacheConfiguration();
+		cache.setName("defaultCache");
+		cache.setMemoryStoreEvictionPolicy("LRU");
+		cache.setMaxEntriesLocalHeap(1000);
+		cache.setTimeToLiveSeconds(60);
 		
-		CacheConfiguration twentySecondCache = new CacheConfiguration();
-		twentySecondCache.setName("twenty-second-cache");
-		twentySecondCache.setMemoryStoreEvictionPolicy("LRU");
-		twentySecondCache.setMaxEntriesLocalHeap(1000);
-		twentySecondCache.setTimeToLiveSeconds(20);
+//		CacheConfiguration twentySecondCache = new CacheConfiguration();
+//		twentySecondCache.setName("twenty-second-cache");
+//		twentySecondCache.setMemoryStoreEvictionPolicy("LRU");
+//		twentySecondCache.setMaxEntriesLocalHeap(1000);
+//		twentySecondCache.setTimeToLiveSeconds(20);
 		
 		net.sf.ehcache.config.Configuration config = new net.sf.ehcache.config.Configuration();
-		config.addCache(tenSecondCache);
-		config.addCache(twentySecondCache);
+		config.addCache(cache);
+//		config.addCache(twentySecondCache);
 		return net.sf.ehcache.CacheManager.newInstance(config);
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class UserController {
 		return users;
 		
 	}
-	
+	@Cacheable(value="defaultCache", key="#id")
 	@GetMapping("/users/{id}")
 	public Optional<User> getUserById(@PathVariable int id) {
 		
@@ -111,7 +112,7 @@ public class UserController {
 		return getallreviews;
 		
 	}
-	
+	@Cacheable(value="defaultCache", key="#id")
 	@GetMapping("/userreviews/{id}")
 	public List<UserReview> getSellerReview(@PathVariable int id) {
 		
@@ -137,7 +138,7 @@ public class UserController {
 		return updatedUpvotes;
 	}
 	
-	
+	@Cacheable(value="defaultCache", key="#sellerID")
 	@GetMapping("/sellerFollowers/{sellerID}")
 	public List<SellerFollower> getSellerFollowers(@PathVariable int sellerID) {
 		
@@ -154,7 +155,7 @@ public class UserController {
 		return addedFollower;
 	}
 	
-
+	@Cacheable(value="defaultCache", key="#userid")
 	@GetMapping("/{userid}/wishlist")
 	public UserWishListOutputDAO getUserWishList(@PathVariable int userid) {
 	
