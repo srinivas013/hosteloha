@@ -7,6 +7,8 @@ import com.RestAPI.hosteloha.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
+
+	public User findByFirstname(String username);
 	
 	
 }

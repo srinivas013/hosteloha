@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.cache.annotation.Cacheable;
-
 @Entity
 @Table(name="users")
 public class User {
@@ -20,7 +18,8 @@ public class User {
 	private long phone;
 	@Column(name="password")
 	private String password;
-	private String first_name;
+	@Column(name="first_name")
+	private String firstname;
 	private String last_name;
 	private String university_name;
 	private String university_website;
@@ -50,7 +49,7 @@ public class User {
 	
 
 
-	public User(int id, int roles_id, int user_privacy_id, long phone, String password, String first_name,
+	public User(int id, int roles_id, int user_privacy_id, long phone, String password, String firstname,
 			String last_name, String university_name, String university_website, String dob, String city, String state,
 			int zip, String country, String res_address_1, String res_address_2, String phone_ext, String ip_address,
 			int is_active, int is_university_verified, int is_mail_verified, String verification_code,
@@ -61,7 +60,7 @@ public class User {
 		this.user_privacy_id = user_privacy_id;
 		this.phone = phone;
 		this.password = password;
-		this.first_name = first_name;
+		this.firstname = firstname;
 		this.last_name = last_name;
 		this.university_name = university_name;
 		this.university_website = university_website;
@@ -118,10 +117,10 @@ public class User {
 		this.password = password;
 	}
 	public String getFirst_name() {
-		return first_name;
+		return firstname;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirst_name(String firstname) {
+		this.firstname = firstname;
 	}
 	public String getLast_name() {
 		return last_name;
