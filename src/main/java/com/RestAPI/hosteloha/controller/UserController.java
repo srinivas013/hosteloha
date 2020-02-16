@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,19 +39,19 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private AuthenticationManager authenticationManager;
-
 	@Autowired
 	private JwtUtil jwtTokenUtil;
-
 	@Autowired
 	private MyUserDetailsService userDetailsService;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
+		
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),authenticationRequest.getPassword())
@@ -97,6 +98,9 @@ public class UserController {
 //				 534250,  "India", "palakol",  "hyd",  "48454",  1,
 //				 1, 1,  "987456",  "23122019");
 		
+		String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
+		
 		User saveduser = userService.addNewUser(user);
 		
 		//URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saveduser.getId()).toUri();
@@ -132,7 +136,7 @@ public class UserController {
 		return roles;
 	}
 	
-	@PostMapping("/roles")
+	@PostMapping("/add_role")
 	public ResponseEntity<Object> addRole(@RequestBody Roles role) {
 		
 		Roles addedRole = userService.addNewRole(role);
