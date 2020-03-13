@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.RestAPI.hosteloha.DAO.UserWishListOutputDAO;
@@ -176,5 +177,14 @@ public class UserService {
 		
 		Optional<User> findById = userRepo.findById(id);
 		return findById;
+	}
+	
+	public int findUserIdByUsername(String username) throws UsernameNotFoundException {
+		
+		User user = userRepo.findByEmail(username);
+		if(user ==null) {
+			throw new UsernameNotFoundException("User not found. Please try again or Sign Up.");
+		}
+		return user.getId();
 	}
 }

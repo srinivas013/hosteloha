@@ -16,8 +16,13 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String product_title;
 	private String subtitle;
 	private String description;
+	private float selling_price;
+	private float cost_price;
+	private String currency;
+	private int quantity;
 	private int category_id;
 	private int users_id;
 	private int condition_id;
@@ -33,13 +38,19 @@ public class Product {
 		super();
 	}
 
-	public Product(int id, String subtitle, String description, int category_id, int users_id, int condition_id,
+	public Product(int id, String product_title, String subtitle, String description, float selling_price,
+			float cost_price, String currency, int quantity, int category_id, int users_id, int condition_id,
 			int delivery_format_id, int payment_option_id, int selling_format_id, Timestamp inserted_at,
 			Timestamp updated_at) {
 		super();
 		this.id = id;
+		this.product_title = product_title;
 		this.subtitle = subtitle;
 		this.description = description;
+		this.selling_price = selling_price;
+		this.cost_price = cost_price;
+		this.currency = currency;
+		this.quantity = quantity;
 		this.category_id = category_id;
 		this.users_id = users_id;
 		this.condition_id = condition_id;
@@ -58,6 +69,14 @@ public class Product {
 		this.id = id;
 	}
 
+	public String getProduct_title() {
+		return product_title;
+	}
+
+	public void setProduct_title(String product_title) {
+		this.product_title = product_title;
+	}
+
 	public String getSubtitle() {
 		return subtitle;
 	}
@@ -72,6 +91,38 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public float getSelling_price() {
+		return selling_price;
+	}
+
+	public void setSelling_price(float selling_price) {
+		this.selling_price = selling_price;
+	}
+
+	public float getCost_price() {
+		return cost_price;
+	}
+
+	public void setCost_price(float cost_price) {
+		this.cost_price = cost_price;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public int getCategory_id() {
@@ -138,14 +189,5 @@ public class Product {
 		this.updated_at = updated_at;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", subtitle=" + subtitle + ", description=" + description + ", category_id="
-				+ category_id + ", users_id=" + users_id + ", condition_id=" + condition_id + ", delivery_format_id="
-				+ delivery_format_id + ", payment_option_id=" + payment_option_id + ", selling_format_id="
-				+ selling_format_id + ", inserted_at=" + inserted_at + ", updated_at=" + updated_at + "]";
-	}
-	
-	
 
 }

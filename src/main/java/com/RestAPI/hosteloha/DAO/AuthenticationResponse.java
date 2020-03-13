@@ -5,12 +5,27 @@ import java.io.Serializable;
 public class AuthenticationResponse implements Serializable {
 
 	private final String jwt;
+	private int id;
+	private int Expirationdays;
+	
+	public AuthenticationResponse(String jwt, int id, int expirationdays) {
+		super();
+		this.jwt = jwt;
+		this.id = id;
+		Expirationdays = expirationdays;
+	}
 
-    public AuthenticationResponse(String jwt) {
-        this.jwt = jwt;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getJwt() {
-        return jwt;
-    }
+	public int getExpirationdays() {
+		return Expirationdays;
+	}
+
+	public String getJwt() {
+		return jwt;
+	}
+	
 }
+

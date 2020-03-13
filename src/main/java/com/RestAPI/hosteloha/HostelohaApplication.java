@@ -11,6 +11,7 @@ public class HostelohaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HostelohaApplication.class, args);
 	}
+
 	
 	
 

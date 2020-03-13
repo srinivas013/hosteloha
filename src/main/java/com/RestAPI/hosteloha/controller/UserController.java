@@ -1,6 +1,7 @@
 package com.RestAPI.hosteloha.controller;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,7 @@ import com.RestAPI.hosteloha.service.UserService;
 import com.RestAPI.hosteloha.util.JwtUtil;
 
 
+
 @RestController
 public class UserController {
 	
@@ -51,12 +54,21 @@ public class UserController {
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
+		try {
+		userService.findUserIdByUsername(authenticationRequest.getUsername());
+		}
+		
+		catch (UsernameNotFoundException e) {
+			throw new Exception("User not found. Please try again or Sign Up.", e);
+		}
 		
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),authenticationRequest.getPassword())
 					);
 		}
+	
+		
 		catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
@@ -66,8 +78,18 @@ public class UserController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		
+		
+		int days = jwtTokenUtil.getDays();
+		
+//		System.out.println("_________________________________________________________________________________________________"
+//				+ "__________________________________________________________________________________________________" + jwtTokenUtil.extractExpiration(jwt));
+		
+		String username = authenticationRequest.getUsername();
+		
+		int userid = userService.findUserIdByUsername(username);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,userid,days));
 	}
 	
 	@GetMapping("/users")

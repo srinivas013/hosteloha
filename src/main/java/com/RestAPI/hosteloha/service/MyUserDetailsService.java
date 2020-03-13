@@ -26,10 +26,10 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		com.RestAPI.hosteloha.model.User user = userRepo.findByFirstname(username);
+		com.RestAPI.hosteloha.model.User user = userRepo.findByEmail(username);
 		Optional<Roles> role = rolesRepo.findById(user.getRoles_id());
 		
-        return User.withUsername(user.getFirst_name())
+        return User.withUsername(user.getEmail())
         		.password(user.getPassword())
         		.roles(role.get().getName()).build();
 	}
