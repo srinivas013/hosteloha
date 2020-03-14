@@ -80,16 +80,15 @@ public class UserController {
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
 		
-		int days = jwtTokenUtil.getDays();
-		
-//		System.out.println("_________________________________________________________________________________________________"
-//				+ "__________________________________________________________________________________________________" + jwtTokenUtil.extractExpiration(jwt));
-		
 		String username = authenticationRequest.getUsername();
 		
 		int userid = userService.findUserIdByUsername(username);
+		
+		Date extractExpiration = jwtTokenUtil.extractExpiration(jwt);
+		
+//		System.out.println(extractExpiration);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt,userid,days));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,userid,extractExpiration));
 	}
 	
 	@GetMapping("/users")

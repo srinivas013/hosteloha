@@ -1,31 +1,32 @@
 package com.RestAPI.hosteloha.DAO;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AuthenticationResponse implements Serializable {
 
 	private final String jwt;
 	private int id;
-	private int Expirationdays;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date expirationDate;
 	
-	public AuthenticationResponse(String jwt, int id, int expirationdays) {
-		super();
+	public AuthenticationResponse(String jwt, int id, Date expirationDate) {
 		this.jwt = jwt;
 		this.id = id;
-		Expirationdays = expirationdays;
+		this.expirationDate = expirationDate;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int getExpirationdays() {
-		return Expirationdays;
-	}
-
 	public String getJwt() {
 		return jwt;
 	}
+	public int getId() {
+		return id;
+	}
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
 	
 }
 
