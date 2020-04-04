@@ -92,10 +92,14 @@ public class ProductService {
 		}
 		
 		Product product = new Product();
+		product.setProduct_title(productInput.getProduct_title());
 		product.setSubtitle(productInput.getSubtitle());
 		product.setDescription(productInput.getDescription());
 		product.setCategory_id(categoryId);
 		product.setUsers_id(productInput.getUsers_id());
+		product.setCurrency(productInput.getCurrency());
+		product.setCost_price(productInput.getCost_price());
+		product.setSelling_price(productInput.getSelling_price());
 		product.setCondition_id(productInput.getCondition_id());
 		product.setDelivery_format_id(productInput.getDelivery_format_id());
 		product.setPayment_option_id(productInput.getPayment_option_id());
@@ -259,6 +263,7 @@ public class ProductService {
 			for(AllCategoryList list1 : allCategoryList) {
 				if(list1.getSubcategory1().equals(sclist)) {
 					templist.add(list1.getSubcategory2());
+			
 				}
 				
 			}

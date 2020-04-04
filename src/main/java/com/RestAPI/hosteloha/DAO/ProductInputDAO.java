@@ -11,6 +11,7 @@ public class ProductInputDAO {
 	private String category;
 	private String subcategory1;
 	private String subcategory2;
+	private String currency;
 	private float selling_price;
 	private float cost_price;
 	private int users_id;
@@ -26,8 +27,8 @@ public class ProductInputDAO {
 
 
 	public ProductInputDAO(String product_title, String subtitle, String description, String category,
-			String subcategory1, String subcategory2, float selling_price, float cost_price, int users_id,
-			int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id) {
+			String subcategory1, String subcategory2, String currency, float selling_price, float cost_price,
+			int users_id, int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id) {
 		super();
 		this.product_title = product_title;
 		this.subtitle = subtitle;
@@ -35,6 +36,7 @@ public class ProductInputDAO {
 		this.category = category;
 		this.subcategory1 = subcategory1;
 		this.subcategory2 = subcategory2;
+		this.currency = currency;
 		this.selling_price = selling_price;
 		this.cost_price = cost_price;
 		this.users_id = users_id;
@@ -102,6 +104,16 @@ public class ProductInputDAO {
 
 	public void setSubcategory2(String subcategory2) {
 		this.subcategory2 = subcategory2;
+	}
+
+
+	public String getCurrency() {
+		return currency;
+	}
+
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 
@@ -174,5 +186,6 @@ public class ProductInputDAO {
 		this.selling_format_id = selling_format_id;
 	}
 
+	
 	
 }
