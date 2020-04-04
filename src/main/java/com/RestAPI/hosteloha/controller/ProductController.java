@@ -2,6 +2,8 @@ package com.RestAPI.hosteloha.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.RestAPI.hosteloha.DAO.AllCategoryList;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryList;
@@ -128,7 +131,11 @@ public class ProductController {
 		return new ResponseEntity<Object>(updateProductViews, HttpStatus.OK);
 	}
 	
-		
+	@GetMapping("/categorymaplist")
+	public ResponseEntity<?> getCategoryMapList() {
+		Map<String, Set<String>> allCategoryList = productService.finalCategoryListtoFE();
+		return ResponseEntity.ok(allCategoryList);
+	}
 }	
 	
 	

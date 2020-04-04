@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.RestAPI.hosteloha.DAO.AllCategoryList;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryFilterPkey;
 
@@ -21,6 +22,5 @@ public interface CategoryFilterRepository extends JpaRepository<CategoryFilter, 
 
 	@Query(value= "select count(*) from category_filter where category_name = :categoryname and sub_category1 = :subcategory1 " , nativeQuery = true)
 	int checkSubCategory1(@Param("categoryname")String category,@Param("subcategory1") String subcategory1);
-
 	
 }

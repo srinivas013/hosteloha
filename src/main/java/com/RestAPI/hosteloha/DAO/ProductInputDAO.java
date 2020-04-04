@@ -5,11 +5,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductInputDAO {
 	
+	private String product_title;
 	private String subtitle;
 	private String description;
 	private String category;
 	private String subcategory1;
 	private String subcategory2;
+	private float selling_price;
+	private float cost_price;
 	private int users_id;
 	private int condition_id;
 	private int delivery_format_id;
@@ -22,20 +25,33 @@ public class ProductInputDAO {
 	}
 
 
-	public ProductInputDAO(String subtitle, String description, String category, String subcategory1,
-			String subcategory2, int users_id, int condition_id, int delivery_format_id, int payment_option_id,
-			int selling_format_id) {
+	public ProductInputDAO(String product_title, String subtitle, String description, String category,
+			String subcategory1, String subcategory2, float selling_price, float cost_price, int users_id,
+			int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id) {
 		super();
+		this.product_title = product_title;
 		this.subtitle = subtitle;
 		this.description = description;
 		this.category = category;
 		this.subcategory1 = subcategory1;
 		this.subcategory2 = subcategory2;
+		this.selling_price = selling_price;
+		this.cost_price = cost_price;
 		this.users_id = users_id;
 		this.condition_id = condition_id;
 		this.delivery_format_id = delivery_format_id;
 		this.payment_option_id = payment_option_id;
 		this.selling_format_id = selling_format_id;
+	}
+
+
+	public String getProduct_title() {
+		return product_title;
+	}
+
+
+	public void setProduct_title(String product_title) {
+		this.product_title = product_title;
 	}
 
 
@@ -89,6 +105,26 @@ public class ProductInputDAO {
 	}
 
 
+	public float getSelling_price() {
+		return selling_price;
+	}
+
+
+	public void setSelling_price(float selling_price) {
+		this.selling_price = selling_price;
+	}
+
+
+	public float getCost_price() {
+		return cost_price;
+	}
+
+
+	public void setCost_price(float cost_price) {
+		this.cost_price = cost_price;
+	}
+
+
 	public int getUsers_id() {
 		return users_id;
 	}
@@ -138,15 +174,5 @@ public class ProductInputDAO {
 		this.selling_format_id = selling_format_id;
 	}
 
-
-	@Override
-	public String toString() {
-		return "ProductInputDAO [subtitle=" + subtitle + ", description=" + description + ", category=" + category
-				+ ", subcategory1=" + subcategory1 + ", subcategory2=" + subcategory2 + ", users_id=" + users_id
-				+ ", condition_id=" + condition_id + ", delivery_format_id=" + delivery_format_id
-				+ ", payment_option_id=" + payment_option_id + ", selling_format_id=" + selling_format_id + "]";
-	}
-	
-	
 	
 }

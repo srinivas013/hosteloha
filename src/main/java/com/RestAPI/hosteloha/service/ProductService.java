@@ -1,13 +1,18 @@
 package com.RestAPI.hosteloha.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.RestAPI.hosteloha.DAO.AllCategoryList;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.model.Category;
 import com.RestAPI.hosteloha.model.CategoryFilter;
@@ -19,6 +24,7 @@ import com.RestAPI.hosteloha.model.ProductPricing;
 import com.RestAPI.hosteloha.model.ProductViews;
 import com.RestAPI.hosteloha.model.UserProductWishlist;
 import com.RestAPI.hosteloha.model.ViewsHour;
+import com.RestAPI.hosteloha.repository.AllCategoryListRepository;
 import com.RestAPI.hosteloha.repository.CategoryFilterRepository;
 import com.RestAPI.hosteloha.repository.CategoryRepository;
 import com.RestAPI.hosteloha.repository.CategorySubFilterRepository;
@@ -49,6 +55,8 @@ public class ProductService {
 	private ProductViewsRepository productViewRepo;
 	@Autowired
 	private ViewsHourRepository viewsHourRepo;
+	@Autowired
+	private AllCategoryListRepository allcategorylistrepo;
 
 
 	public List<Product> getAllProducts() {
@@ -197,6 +205,70 @@ public class ProductService {
 		return updateAllViewCount;
 	}
 
+//	public List<AllCategoryList> getAllCategoryList() {
+//		
+//		List<AllCategoryList> allCategoryList = allcategorylistrepo.getAllCategoryList();
+//		return allCategoryList;
+//	}
 
+	public Map<String, Set<String>> finalCategoryListtoFE() {
+		
+		List<AllCategoryList> allCategoryList = allcategorylistrepo.getAllCategoryList();
+		
+		Map<String, Set<String>> finallist = new HashMap<String, Set<String>>();
+		
+		Set<String> categorynamelist = new HashSet<String>();
+		
+		
+		for( AllCategoryList list : allCategoryList) {
+			categorynamelist.add(list.getCategoryname());
+		}
+		System.out.println(categorynamelist);
+		
+		Set<String> subcategorylist1 = new HashSet<String>();
+		
+		for( AllCategoryList list : allCategoryList) {
+			subcategorylist1.add(list.getSubcategory1());
+		}
+		
+//		Set<String> subcategorylist2 = new HashSet<String>();
+//		
+//		for( AllCategoryList list : allCategoryList) {
+//			categorynamelist.add(list.getSubcategory2());
+//		}
+//		
+		for(String clist : categorynamelist) {
+			
+			Set<String> templist = new HashSet<String>();
+			
+			for(AllCategoryList list1 : allCategoryList) {
+				if(list1.getCategoryname().equals(clist)) {
+					templist.add(list1.getSubcategory1());
+				}
+				
+			}
+			
+			finallist.put(clist, templist);
+		}
+			
+		for(String sclist : subcategorylist1) {
+			
+			
+			Set<String> templist = new HashSet<String>();
+			
+			for(AllCategoryList list1 : allCategoryList) {
+				if(list1.getSubcategory1().equals(sclist)) {
+					templist.add(list1.getSubcategory2());
+				}
+				
+			}
+			
+			finallist.put(sclist, templist);
+		}
+		
+		
+		System.out.println(finallist);
+		return finallist;
+	}
 	
 }
