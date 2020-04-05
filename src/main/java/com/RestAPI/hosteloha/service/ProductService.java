@@ -241,6 +241,8 @@ public class ProductService {
 //			categorynamelist.add(list.getSubcategory2());
 //		}
 //		
+		finallist.put("root",categorynamelist);
+		
 		for(String clist : categorynamelist) {
 			
 			Set<String> templist = new HashSet<String>();
