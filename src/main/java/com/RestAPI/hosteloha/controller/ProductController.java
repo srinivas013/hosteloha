@@ -136,6 +136,12 @@ public class ProductController {
 		Map<String, Set<String>> allCategoryList = productService.finalCategoryListtoFE();
 		return ResponseEntity.ok(allCategoryList);
 	}
+	
+	@PutMapping("/updateProduct")
+	public Product updateProduct(@RequestBody Product product) {
+		Product updatedProduct = productService.updateProduct(product);
+		return updatedProduct;
+	}
 }	
 	
 	

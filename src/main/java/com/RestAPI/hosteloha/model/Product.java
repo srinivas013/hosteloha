@@ -29,9 +29,9 @@ public class Product {
 	private int delivery_format_id;
 	private int payment_option_id;
 	private int selling_format_id;
-	@Column(insertable=false)
+	@Column(insertable=false, updatable=false)
 	private Timestamp inserted_at;
-	@Column(insertable=false)
+	@Column(insertable=false, updatable= false)
 	private Timestamp updated_at;
 	
 	public Product() {

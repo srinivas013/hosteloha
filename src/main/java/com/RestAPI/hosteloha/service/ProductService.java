@@ -277,5 +277,11 @@ public class ProductService {
 		System.out.println(finallist);
 		return finallist;
 	}
+
+	public Product updateProduct(Product product) {
+		
+		Product savedproduct = productRepo.save(product);
+		return savedproduct;
+	}
 	
 }

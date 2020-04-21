@@ -187,4 +187,10 @@ public class UserService {
 		}
 		return user.getId();
 	}
+
+	public User updateUser(User user) {
+		
+		User updateduser = userRepo.save(user);
+		return updateduser;
+	}
 }

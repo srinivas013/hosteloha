@@ -38,9 +38,9 @@ public class User {
 	private int is_mail_verified;
 	private String verification_code;
 	private String registration_date;
-	@Column(insertable=false)
+	@Column(insertable=false,updatable = false)
 	private Date inserted_at;
-	@Column(insertable=false)
+	@Column(insertable=false, updatable = false)
 	private Date updated_at;
 	
 	
