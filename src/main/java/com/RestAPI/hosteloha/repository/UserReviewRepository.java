@@ -21,6 +21,5 @@ public interface UserReviewRepository extends JpaRepository<UserReview, Integer>
 	@Query(value= "update UserReview a set a.review_upvotes = a.review_upvotes+1 where a.id = :id")
 	@Transactional
 	int updateUpvotes(@Param("id") int id);
-
 	
 }

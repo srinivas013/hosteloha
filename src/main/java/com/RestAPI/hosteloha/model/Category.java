@@ -4,10 +4,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 //@SequenceGenerator(name="seq", sequenceName="categoryidseq", allocationSize = 9000)
@@ -15,6 +19,7 @@ public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
 	@Column(name="category_name")
 	private String category_name;
@@ -22,12 +27,19 @@ public class Category {
 	private String sub_category1;
 	@Column(name="sub_category2")
 	private String sub_category2;
+	@JsonIgnore
 	@Column(name="description")
 	private String description;
+	@JsonIgnore
 	@Column(insertable = false)
 	private Timestamp inserted_at;
+	@JsonIgnore
 	@Column(insertable = false)
 	private Timestamp updated_at;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "category")
+	@JsonIgnore
+	private Product product;
 	
 	public Category() {
 		super();
@@ -99,6 +111,16 @@ public class Category {
 
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	
+	
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@Override

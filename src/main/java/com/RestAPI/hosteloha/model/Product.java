@@ -1,13 +1,25 @@
 package com.RestAPI.hosteloha.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 //@SequenceGenerator(name="seq", initialValue=100000, allocationSize=900000)
@@ -23,6 +35,7 @@ public class Product {
 	private float cost_price;
 	private String currency;
 	private int quantity;
+	@JsonIgnore
 	private int category_id;
 	private int users_id;
 	private int condition_id;
@@ -33,6 +46,17 @@ public class Product {
 	private Timestamp inserted_at;
 	@Column(insertable=false, updatable= false)
 	private Timestamp updated_at;
+	
+	@OneToMany(fetch = FetchType.EAGER,  mappedBy = "product")
+	@Fetch(FetchMode.JOIN)
+	@BatchSize(size=25)
+	private List<ProductImage> productimages;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="category_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	@BatchSize(size=25)
+	private Category category;
 	
 	public Product() {
 		super();
@@ -189,5 +213,23 @@ public class Product {
 		this.updated_at = updated_at;
 	}
 
+	
+	public List<ProductImage> getProductimages() {
+		return productimages;
+	}
+
+	public void setProductimages(List<ProductImage> productimages) {
+		this.productimages = productimages;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	
 
 }

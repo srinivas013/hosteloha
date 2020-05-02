@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.RestAPI.hosteloha.DAO.AllCategoryList;
+import com.RestAPI.hosteloha.DAO.ProductImageInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
+import com.RestAPI.hosteloha.DAO.ProductOutputDAO;
 import com.RestAPI.hosteloha.model.Category;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryList;
 import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
+import com.RestAPI.hosteloha.model.ProductImage;
 import com.RestAPI.hosteloha.model.ProductPricing;
 import com.RestAPI.hosteloha.model.ProductViews;
 import com.RestAPI.hosteloha.model.UserProductWishlist;
@@ -29,6 +32,8 @@ import com.RestAPI.hosteloha.repository.CategoryFilterRepository;
 import com.RestAPI.hosteloha.repository.CategoryRepository;
 import com.RestAPI.hosteloha.repository.CategorySubFilterRepository;
 import com.RestAPI.hosteloha.repository.ConditionRepository;
+import com.RestAPI.hosteloha.repository.ProductImageRepository;
+import com.RestAPI.hosteloha.repository.ProductOutputRepository;
 import com.RestAPI.hosteloha.repository.ProductPricingRepository;
 import com.RestAPI.hosteloha.repository.ProductRepository;
 import com.RestAPI.hosteloha.repository.ProductViewsRepository;
@@ -57,6 +62,10 @@ public class ProductService {
 	private ViewsHourRepository viewsHourRepo;
 	@Autowired
 	private AllCategoryListRepository allcategorylistrepo;
+	@Autowired
+	private ProductImageRepository productimagerepo;
+	@Autowired
+	private ProductOutputRepository productoutputrepo;
 
 
 	public List<Product> getAllProducts() {
@@ -282,6 +291,20 @@ public class ProductService {
 		
 		Product savedproduct = productRepo.save(product);
 		return savedproduct;
+	}
+
+	public String addProductImages(ProductImageInputDAO productimagelist) {
+		
+		
+		for(String image : productimagelist.getImageURL())
+		{
+			ProductImage productimage = new ProductImage();
+			productimage.setProductid(productimagelist.getProductid());
+			productimage.setImageURL(image);
+			ProductImage savedimages = productimagerepo.save(productimage);
+		}
+		
+		return "sucess";
 	}
 	
 }

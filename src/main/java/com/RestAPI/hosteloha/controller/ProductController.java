@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.RestAPI.hosteloha.DAO.AllCategoryList;
+import com.RestAPI.hosteloha.DAO.ProductImageInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
+import com.RestAPI.hosteloha.DAO.ProductOutputDAO;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryList;
 import com.RestAPI.hosteloha.model.CategorySubFilter;
 import com.RestAPI.hosteloha.model.Condition;
 import com.RestAPI.hosteloha.model.Product;
+import com.RestAPI.hosteloha.model.ProductImage;
 import com.RestAPI.hosteloha.model.ProductPricing;
 import com.RestAPI.hosteloha.service.ProductService;
 
@@ -142,6 +145,15 @@ public class ProductController {
 		Product updatedProduct = productService.updateProduct(product);
 		return updatedProduct;
 	}
-}	
+	
+	@PostMapping("/addProductImage")
+	public String addProductImages(@RequestBody ProductImageInputDAO productimage) {
+		String result = productService.addProductImages(productimage);
+		return result;
+		
+	}
+
+
+}
 	
 	

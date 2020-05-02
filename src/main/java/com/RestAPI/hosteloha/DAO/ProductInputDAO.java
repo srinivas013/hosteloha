@@ -186,6 +186,4 @@ public class ProductInputDAO {
 		this.selling_format_id = selling_format_id;
 	}
 
-	
-	
 }
