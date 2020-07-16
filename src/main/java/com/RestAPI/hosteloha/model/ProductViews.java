@@ -4,10 +4,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "product_views")
@@ -15,7 +20,9 @@ public class ProductViews {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
+	@JsonIgnore
 	private int product_id;
 	@Column(insertable = false)
 	private Timestamp last_viewed;
@@ -24,9 +31,15 @@ public class ProductViews {
 	@Column(insertable = false)
 	private int views_count;
 	@Column(insertable = false)
+	@JsonIgnore
 	private Timestamp inserted_at;
+	@JsonIgnore
 	@Column(insertable = false)
 	private Timestamp updated_at;
+	
+	@OneToOne
+	@JoinColumn(name = "product_id" ,referencedColumnName = "id", insertable = false, updatable = false)
+	private Product product1;
 	
 	public ProductViews() {
 		super();

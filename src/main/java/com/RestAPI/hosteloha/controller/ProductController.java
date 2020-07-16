@@ -153,6 +153,16 @@ public class ProductController {
 		
 	}
 
+	@PutMapping("/{productid}/{state}/updateProductState")
+	public String updateProductState(@PathVariable int productid, @PathVariable String state) {
+		int result = productService.updateProductState(productid,state);
+		System.out.println("result=========="+result);
+		if(result==1)
+		return "Success";
+		else 
+			return "Something went wrong";
+		
+	}
 
 }
 	

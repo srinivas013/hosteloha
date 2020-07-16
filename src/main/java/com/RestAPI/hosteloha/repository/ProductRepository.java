@@ -3,6 +3,7 @@ package com.RestAPI.hosteloha.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			"left join category as c on p.category_id=c.id\n" + 
 			"left join product_image as i on p.id=i.productid" , nativeQuery = true)
 	List<ProductOutputDAO> findAllProducts();
+
+	@Modifying
+	@Query(value= "update product set product_state = :state where id = :productid ", nativeQuery = true)
+	int updateProductState(@Param("productid")int productid, @Param("state")String state);
 
 //	@Query(value = "select * from product as p Left Outer join product_image as i on p.id=i.productid",nativeQuery = true)
 //	List<Product> getAllProducts();

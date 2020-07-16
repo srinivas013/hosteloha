@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.RestAPI.hosteloha.DAO.UserWishListOutputDAO;
+import com.RestAPI.hosteloha.exception.UserNotFoundException;
 import com.RestAPI.hosteloha.model.Product;
 import com.RestAPI.hosteloha.model.Roles;
 import com.RestAPI.hosteloha.model.SellerFollower;
@@ -135,9 +136,13 @@ public class UserService {
 
 	
 	
-	public UserWishListOutputDAO getUserWishlist(int id) {
+	public UserWishListOutputDAO getUserWishlist(int id) throws UserNotFoundException {
 		
+	
 		List<UserProductWishlist> wishlist = whislistRepo.findByUserID(id);
+		
+		if(wishlist == null) 
+			throw new UserNotFoundException("User doesn't have aby wishlist");
 		
 		List<Integer> productids = new ArrayList<Integer>();
 		for(UserProductWishlist i : wishlist) {
@@ -152,6 +157,7 @@ public class UserService {
 		UserWishListOutputDAO outputWishList = new UserWishListOutputDAO(id,productsbyId);
 		
 		return outputWishList;
+		
 	}
 
 	public UserProductWishlist addToWishlist(UserProductWishlist wishitem) {

@@ -4,14 +4,20 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name="users")
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(hidden = true)
 	private int id;
 	private int roles_id;
 	private int user_privacy_id;
@@ -39,8 +45,10 @@ public class User {
 	private String verification_code;
 	private String registration_date;
 	@Column(insertable=false,updatable = false)
+	@ApiModelProperty(required=false, hidden = true)
 	private Date inserted_at;
 	@Column(insertable=false, updatable = false)
+	@ApiModelProperty(required=false, hidden = true)
 	private Date updated_at;
 	
 	

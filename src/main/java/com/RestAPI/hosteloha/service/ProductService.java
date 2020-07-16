@@ -306,5 +306,13 @@ public class ProductService {
 		
 		return "sucess";
 	}
+
+	public int updateProductState(int productid, String state) {
+		
+		System.out.println(productid+"---------------"+state);
+		int result = productRepo.updateProductState(productid,state);
+		return result;
+		
+	}
 	
 }

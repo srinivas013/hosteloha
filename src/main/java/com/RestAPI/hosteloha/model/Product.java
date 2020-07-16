@@ -35,6 +35,7 @@ public class Product {
 	private float cost_price;
 	private String currency;
 	private int quantity;
+	private String product_state;
 	@JsonIgnore
 	private int category_id;
 	private int users_id;
@@ -52,20 +53,34 @@ public class Product {
 	@BatchSize(size=25)
 	private List<ProductImage> productimages;
 	
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "product1")
+	@Fetch(FetchMode.JOIN)
+	@BatchSize(size=25)
+	private ProductViews productviews;
+	
+//	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id")
+//	@Fetch(FetchMode.JOIN)
+//	@BatchSize(size=25)
+//	private ProductViews productviews;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="category_id", referencedColumnName = "id", insertable = false, updatable = false)
 	@Fetch(FetchMode.JOIN)
 	@BatchSize(size=25)
 	private Category category;
 	
+
+	
 	public Product() {
 		super();
 	}
 
+
 	public Product(int id, String product_title, String subtitle, String description, float selling_price,
-			float cost_price, String currency, int quantity, int category_id, int users_id, int condition_id,
-			int delivery_format_id, int payment_option_id, int selling_format_id, Timestamp inserted_at,
-			Timestamp updated_at) {
+			float cost_price, String currency, int quantity, String productState, int category_id, int users_id,
+			int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id,
+			Timestamp inserted_at, Timestamp updated_at) {
 		super();
 		this.id = id;
 		this.product_title = product_title;
@@ -75,6 +90,7 @@ public class Product {
 		this.cost_price = cost_price;
 		this.currency = currency;
 		this.quantity = quantity;
+		this.product_state = productState;
 		this.category_id = category_id;
 		this.users_id = users_id;
 		this.condition_id = condition_id;
@@ -84,6 +100,7 @@ public class Product {
 		this.inserted_at = inserted_at;
 		this.updated_at = updated_at;
 	}
+
 
 	public int getId() {
 		return id;
@@ -140,6 +157,18 @@ public class Product {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+	
+
+
+	public String getProduct_state() {
+		return product_state;
+	}
+
+
+	public void setProduct_state(String product_state) {
+		this.product_state = product_state;
+	}
+
 
 	public int getQuantity() {
 		return quantity;
@@ -229,6 +258,15 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+	public ProductViews getProductviews() {
+		return productviews;
+	}
+
+	public void setProductviews(ProductViews productviews) {
+		this.productviews = productviews;
+	}
+	
 	
 	
 

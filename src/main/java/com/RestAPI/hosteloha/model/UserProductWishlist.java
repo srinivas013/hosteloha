@@ -1,6 +1,8 @@
 package com.RestAPI.hosteloha.model;
 
-import java.sql.Timestamp;
+
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,32 +11,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="user_product_wishlist")
 public class UserProductWishlist {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(hidden = true)
 	private int id;
 	@Column(name="users_id")
 	private int userID;
 	private int product_id;
-	@Column(insertable = false)
-	private Timestamp inserted_at;
-	@Column(insertable = false)
-	private Timestamp updated_at;
+	@Column(insertable = false, updatable = false)
+	@ApiModelProperty(required = false, hidden = true)
+	private Date inserted_at;
+	@Column(insertable = false, updatable = false)
+	@ApiModelProperty(required = false, hidden = true)
+	private Date updated_at;
 	
 	public UserProductWishlist() {
 		super();
 	}
 
-	public UserProductWishlist(int id, int userID, int product_id, Timestamp inserted_at, Timestamp updated_at) {
+	public UserProductWishlist(int id, int userID, int product_id) {
 		super();
 		this.id = id;
 		this.userID = userID;
 		this.product_id = product_id;
-		this.inserted_at = inserted_at;
-		this.updated_at = updated_at;
 	}
 
 	public int getId() {
@@ -61,19 +66,19 @@ public class UserProductWishlist {
 		this.product_id = product_id;
 	}
 
-	public Timestamp getInserted_at() {
+	public Date getInserted_at() {
 		return inserted_at;
 	}
 
-	public void setInserted_at(Timestamp inserted_at) {
+	public void setInserted_at(Date inserted_at) {
 		this.inserted_at = inserted_at;
 	}
 
-	public Timestamp getUpdated_at() {
+	public Date getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Timestamp updated_at) {
+	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
 	
