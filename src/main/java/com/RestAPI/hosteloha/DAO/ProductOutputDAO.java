@@ -1,11 +1,14 @@
 package com.RestAPI.hosteloha.DAO;
 
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "allproductsoutput")
+@Table(name = "allpopularproducts")
 public class ProductOutputDAO {
 
 	@Id
@@ -25,7 +28,12 @@ public class ProductOutputDAO {
 	private int delivery_format_id;
 	private int payment_option_id;
 	private int selling_format_id;
-	private String imageURL;
+	@Column(insertable = false)
+	private int views_hour;
+	@Column(insertable = false)
+	private int views_count;
+	private Timestamp last_viewed;
+
 	
 //	private int category_id; 
 	
@@ -33,10 +41,12 @@ public class ProductOutputDAO {
 		super();
 	}
 
+
+
 public ProductOutputDAO(int id, String product_title, String subtitle, String description, float selling_price,
 		float cost_price, String currency, int quantity, String category, String subcategory1, String subcategory2,
 		int users_id, int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id,
-		String imageURL) {
+		int views_hour, int views_count, Timestamp last_viewed) {
 	super();
 	this.id = id;
 	this.product_title = product_title;
@@ -54,8 +64,12 @@ public ProductOutputDAO(int id, String product_title, String subtitle, String de
 	this.delivery_format_id = delivery_format_id;
 	this.payment_option_id = payment_option_id;
 	this.selling_format_id = selling_format_id;
-	this.imageURL = imageURL;
+	this.views_hour = views_hour;
+	this.views_count = views_count;
+	this.last_viewed = last_viewed;
 }
+
+
 
 public int getId() {
 	return id;
@@ -185,13 +199,34 @@ public void setSelling_format_id(int selling_format_id) {
 	this.selling_format_id = selling_format_id;
 }
 
-public String getImageURL() {
-	return imageURL;
+
+public int getViews_hour() {
+	return views_hour;
 }
 
-public void setImageURL(String imageURL) {
-	this.imageURL = imageURL;
+
+public void setViews_hour(int views_hour) {
+	this.views_hour = views_hour;
 }
-	
+
+
+public int getViews_count() {
+	return views_count;
+}
+
+
+public void setViews_count(int views_count) {
+	this.views_count = views_count;
+}
+
+
+public Timestamp getLast_viewed() {
+	return last_viewed;
+}
+
+
+public void setLast_viewed(Timestamp last_viewed) {
+	this.last_viewed = last_viewed;
+}
 	
 }

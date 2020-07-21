@@ -2,7 +2,10 @@ package com.RestAPI.hosteloha.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -136,13 +139,12 @@ public class UserService {
 
 	
 	
-	public UserWishListOutputDAO getUserWishlist(int id) throws UserNotFoundException {
+	public UserWishListOutputDAO getUserWishlist(int id) throws EntityNotFoundException {
 		
-	
 		List<UserProductWishlist> wishlist = whislistRepo.findByUserID(id);
-		
-		if(wishlist == null) 
-			throw new UserNotFoundException("User doesn't have aby wishlist");
+		System.out.println("wishlist--------------"+wishlist);
+		if(wishlist.size() == 0) 
+		throw new EntityNotFoundException("User doesn't have any wishlist");
 		
 		List<Integer> productids = new ArrayList<Integer>();
 		for(UserProductWishlist i : wishlist) {
@@ -179,13 +181,23 @@ public class UserService {
 		return savedRole;
 	}
 
-	public Optional<User> getUserById(int id) {
+	public Optional<User> getUserById(int id) throws EntityNotFoundException,NoSuchElementException	{
 		
 		Optional<User> findById = userRepo.findById(id);
+		try{
+			User user = findById.get();
+		}
+		catch(NoSuchElementException ex) {
+			System.out.println("User not found with id="+id+". Please provide correct UserId");
+		}
+		
+//		if(user ==null) {
+//			throw new NoSuchElementException("User not found. Please provide correct UserId");
+//		}
 		return findById;
 	}
 	
-	public int findUserIdByUsername(String username) throws UsernameNotFoundException {
+	public int findUserIdByUsername(String username) throws EntityNotFoundException {
 		
 		User user = userRepo.findByEmail(username);
 		if(user ==null) {

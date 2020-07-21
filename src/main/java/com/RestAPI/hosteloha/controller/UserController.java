@@ -217,7 +217,7 @@ public class UserController {
 		return addedFollower;
 	}
 	
-	@Cacheable(value="defaultCache", key="#userid")
+	//@Cacheable(value="defaultCache", key="#userid")
 	@GetMapping("/{userid}/wishlist")
 	public UserWishListOutputDAO getUserWishList(@PathVariable int userid) {
 	

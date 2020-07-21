@@ -19,17 +19,21 @@ public class ViewsHour {
 	private int productid;
 	@Column(insertable = false)
 	private Timestamp viewed_at;
+	private int userid;
 	
 	public ViewsHour() {
 		super();
 	}
 
-	public ViewsHour(int id, int productid, Timestamp viewed_at) {
+
+	public ViewsHour(int id, int productid, Timestamp viewed_at, int userid) {
 		super();
 		this.id = id;
 		this.productid = productid;
 		this.viewed_at = viewed_at;
+		this.userid = userid;
 	}
+
 
 	public int getId() {
 		return id;
@@ -54,6 +58,13 @@ public class ViewsHour {
 	public void setViewed_at(Timestamp viewed_at) {
 		this.viewed_at = viewed_at;
 	}
-	
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	
 }

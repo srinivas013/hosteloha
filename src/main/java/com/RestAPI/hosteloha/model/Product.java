@@ -77,10 +77,12 @@ public class Product {
 	}
 
 
+
 	public Product(int id, String product_title, String subtitle, String description, float selling_price,
-			float cost_price, String currency, int quantity, String productState, int category_id, int users_id,
+			float cost_price, String currency, int quantity, String product_state, int category_id, int users_id,
 			int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id,
-			Timestamp inserted_at, Timestamp updated_at) {
+			Timestamp inserted_at, Timestamp updated_at, List<ProductImage> productimages, ProductViews productviews,
+			Category category) {
 		super();
 		this.id = id;
 		this.product_title = product_title;
@@ -90,7 +92,7 @@ public class Product {
 		this.cost_price = cost_price;
 		this.currency = currency;
 		this.quantity = quantity;
-		this.product_state = productState;
+		this.product_state = product_state;
 		this.category_id = category_id;
 		this.users_id = users_id;
 		this.condition_id = condition_id;
@@ -99,7 +101,12 @@ public class Product {
 		this.selling_format_id = selling_format_id;
 		this.inserted_at = inserted_at;
 		this.updated_at = updated_at;
+		this.productimages = productimages;
+		this.productviews = productviews;
+		this.category = category;
 	}
+
+
 
 
 	public int getId() {
@@ -266,8 +273,6 @@ public class Product {
 	public void setProductviews(ProductViews productviews) {
 		this.productviews = productviews;
 	}
-	
-	
 	
 
 }

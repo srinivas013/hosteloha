@@ -51,6 +51,8 @@ public class User {
 	@ApiModelProperty(required=false, hidden = true)
 	private Date updated_at;
 	
+
+	
 	
 	public User() {
 		super();

@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Description;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -127,10 +130,17 @@ public class ProductController {
 		return new ResponseEntity<Object>(result, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/product_views/{product_id}")
-	public ResponseEntity<Object> updateProductViews(@PathVariable int product_id) {
+//	@PutMapping("/product_views/{product_id}")
+//	public ResponseEntity<Object> updateProductViews(@PathVariable int product_id) {
+//		
+//		int updateProductViews = productService.updateProductViews(product_id);
+//		return new ResponseEntity<Object>(updateProductViews, HttpStatus.OK);
+//	}
+	
+	@PutMapping("/product_views/{product_id}/{userid}")
+	public ResponseEntity<Object> updateProductViews(@PathVariable int product_id, @PathVariable int userid) {
 		
-		int updateProductViews = productService.updateProductViews(product_id);
+		int updateProductViews = productService.updateProductViews(product_id,userid);
 		return new ResponseEntity<Object>(updateProductViews, HttpStatus.OK);
 	}
 	
@@ -163,6 +173,26 @@ public class ProductController {
 			return "Something went wrong";
 		
 	}
+	
+	@GetMapping("/getAllProductsByPages/{pagenumber}/{pagesize}/{sortingtype}/{sortby}")
+	public Page<Product> getAllProductsByPages(@PathVariable int pagenumber, @PathVariable int pagesize, 
+			@PathVariable String sortingtype,
+			@PathVariable String sortby) {
+		Page<Product> allProductsByPages = productService.getAllProductsByPages(pagenumber,pagesize,sortingtype,sortby);
+		return allProductsByPages;
+	}
+	
+	@GetMapping("/getAllProductsByCategoryPages/{categoryname}/{pagenumber}/{pagesize}/{sortingtype}/{sortby}")
+	public Page<Product> getAllProductsByCategoryPages(@PathVariable String categoryname, @PathVariable int pagenumber, 
+			@PathVariable int pagesize, 
+			@PathVariable String sortingtype,
+			@PathVariable String sortby) {
+		System.out.println(categoryname);
+		System.out.println(categoryname+"    "+sortingtype+"   "+sortby);
+		Page<Product> allProductsByPages = productService.getAllProductsByCategoryPages(categoryname,pagenumber,pagesize,sortingtype,sortby);
+		return allProductsByPages;
+	}
+
 
 }
 	

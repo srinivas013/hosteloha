@@ -15,4 +15,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	@Query(value = "select id from category where category_name= :category and sub_category1 = :subcategory1 and sub_category2 =:subcategory2", nativeQuery = true)
 	List<Integer> getCategoryId(@Param("category") String category,@Param("subcategory1") String subcategory1,@Param("subcategory2") String subcategory2);
 
+
+	@Query(value = "select id from category where category_name= :category", nativeQuery = true)
+	List<Integer> getCategoryIdByCategoryName(@Param("category") String category);
 }

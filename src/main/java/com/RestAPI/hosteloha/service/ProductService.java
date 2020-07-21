@@ -10,6 +10,12 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.jaxb.SpringDataJaxb.PageRequestDto;
 import org.springframework.stereotype.Service;
 
 import com.RestAPI.hosteloha.DAO.AllCategoryList;
@@ -39,6 +45,7 @@ import com.RestAPI.hosteloha.repository.ProductRepository;
 import com.RestAPI.hosteloha.repository.ProductViewsRepository;
 import com.RestAPI.hosteloha.repository.UserProductWishlistRepository;
 import com.RestAPI.hosteloha.repository.ViewsHourRepository;
+
 
 @Service
 @Transactional
@@ -206,16 +213,23 @@ public class ProductService {
 		
 	}
 
-	public int updateProductViews(int product_id) {
+	public int updateProductViews(int product_id, int userid) {
 	
+		viewsHourRepo.deleteViewsMoreThanThreeHours();
+		int getviewsHourForUser= viewsHourRepo.getviewsHourForUser(product_id, userid);
+		if(getviewsHourForUser==0) {
+		
 		ViewsHour viewshour = new ViewsHour();
 		viewshour.setProductid(product_id);
+		viewshour.setUserid(userid);
 		viewsHourRepo.save(viewshour);
 		
 		int getviewsHour = viewsHourRepo.getviewsHour(product_id);
 		
 		int updateAllViewCount = productViewRepo.updateAllViewCount(product_id, getviewsHour);
 		return updateAllViewCount;
+		}
+		else return 0;
 	}
 
 //	public List<AllCategoryList> getAllCategoryList() {
@@ -314,5 +328,44 @@ public class ProductService {
 		return result;
 		
 	}
+
+	public Page<Product> getAllProductsByPages(int pagenumber, int pagesize, String sortingtype, String sortby) {
+		Direction sorttype=null;
+		if(sortingtype.equalsIgnoreCase("ASC")) {
+			 sorttype = Direction.ASC;
+		} else {
+			 sorttype = Direction.DESC;
+		}
+
+		Page<Product> findAll = productRepo.findAll(PageRequest.of(pagenumber, pagesize, sorttype, sortby));
+		return findAll;
+	}
+	
+	public Page<Product> getAllProductsByCategoryPages(String category,int pagenumber, int pagesize, String sortingtype, String sortby) {
+		Direction sorttype=null;
+		if(sortingtype.equalsIgnoreCase("ASC")) {
+			 sorttype = Direction.ASC;
+		} else {
+			 sorttype = Direction.DESC;
+		}
+
+		System.out.println(category);
+//		List<Integer> idlist = categoryRepo.getCategoryIdByCategoryName(category);
+//		System.out.println(idlist);
+		
+		if(sortby.equalsIgnoreCase("views_count")) {
+		
+			Page<Product> findpopularbycategory = productRepo.findByProductProductViewsViews_count(category,PageRequest.of(pagenumber, pagesize));
+			return findpopularbycategory;
+		}
+		else {
+		
+		Page<Product> findAllByCategory = productRepo.findProductsByCategoryName(category,PageRequest.of(pagenumber, pagesize, sorttype, sortby));
+		System.out.println(findAllByCategory);
+		return findAllByCategory;
+		}
+		
+	}
+
 	
 }

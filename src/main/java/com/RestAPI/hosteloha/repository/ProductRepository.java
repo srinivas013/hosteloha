@@ -2,6 +2,8 @@ package com.RestAPI.hosteloha.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,11 +27,18 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			"left join product_image as i on p.id=i.productid" , nativeQuery = true)
 	List<ProductOutputDAO> findAllProducts();
 
+	
 	@Modifying
 	@Query(value= "update product set product_state = :state where id = :productid ", nativeQuery = true)
 	int updateProductState(@Param("productid")int productid, @Param("state")String state);
 
 //	@Query(value = "select * from product as p Left Outer join product_image as i on p.id=i.productid",nativeQuery = true)
 //	List<Product> getAllProducts();
-
+	@Query("select p from Product p inner join Category c on p.category_id=c.id  where c.category_name=:category" )
+	Page<Product> findProductsByCategoryName(@Param("category")String category, Pageable pageable);
+	
+	@Query("select p from Product p inner join Category c on p.category_id=c.id inner join ProductViews as v on p.id=v.product_id "
+			+ "where c.category_name=:category order by v.views_count desc" )
+	Page<Product> findByProductProductViewsViews_count(@Param("category")String category, Pageable pageable);
+	
 }
