@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -230,6 +231,12 @@ public class UserController {
 		
 		UserProductWishlist addedToWishlist = userService.addToWishlist(wishitem);
 		return new ResponseEntity<UserProductWishlist>(HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/deleteWishlist/{userid}/{productid}")
+	public int removeFromWishlist(@PathVariable int userid, @PathVariable int productid) {
+		int removeFromWishlist = userService.removeFromWishlist(userid,productid);
+		return removeFromWishlist;
 	}
 	
 	@PutMapping("/updateUser")

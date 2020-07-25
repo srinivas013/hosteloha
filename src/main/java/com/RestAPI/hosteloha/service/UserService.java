@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -210,5 +211,12 @@ public class UserService {
 		
 		User updateduser = userRepo.save(user);
 		return updateduser;
+	}
+
+	@Transactional
+	public int removeFromWishlist(int userid, int productid) {
+		
+		int removeFromWishlist = whislistRepo.removeFromWishlist(userid,productid);
+		return removeFromWishlist;
 	}
 }
