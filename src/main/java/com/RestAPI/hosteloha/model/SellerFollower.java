@@ -4,10 +4,17 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name="seller_followers")
@@ -15,27 +22,34 @@ public class SellerFollower {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
 	@Column(name="seller_id")
 	private int sellerID;
-	private int follower_id;
+	@Column(name ="followerId")
+	private int followerId;
 	private int is_notify;
-	@Column(insertable=false)
+	@Column(insertable=false , updatable = false)
+	@ApiModelProperty(required=false, hidden = true)
 	private Timestamp inserted_at;
-	@Column(insertable=false)
+	@Column(insertable=false, updatable = false)
+	@ApiModelProperty(required=false, hidden = true)
 	private Timestamp updated_at; 
+	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "seller_id", referencedColumnName = "id", insertable = false, updatable = false)
+//	private User user;
 	
 	public SellerFollower() {
 		super();
 	}
 
-	public SellerFollower(int id, int sellerID, int follower_id, int is_notify, Timestamp inserted_at) {
+	public SellerFollower(int id, int sellerID, int followerId, int is_notify) {
 		super();
 		this.id = id;
 		this.sellerID = sellerID;
-		this.follower_id = follower_id;
+		this.followerId = followerId;
 		this.is_notify = is_notify;
-		this.inserted_at = inserted_at;
 	}
 
 	public int getId() {
@@ -55,11 +69,11 @@ public class SellerFollower {
 	}
 
 	public int getFollower_id() {
-		return follower_id;
+		return followerId;
 	}
 
-	public void setFollower_id(int follower_id) {
-		this.follower_id = follower_id;
+	public void setFollower_id(int followerId) {
+		this.followerId = followerId;
 	}
 
 	public int getIs_notify() {
@@ -74,10 +88,8 @@ public class SellerFollower {
 		return inserted_at;
 	}
 
-	public void setInserted_at(Timestamp inserted_at) {
-		this.inserted_at = inserted_at;
+	public Timestamp getUpdated_at() {
+		return updated_at;
 	}
-	
-	
 	
 }

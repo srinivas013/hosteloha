@@ -337,6 +337,7 @@ public class ProductService {
 			 sorttype = Direction.DESC;
 		}
 
+		System.out.println(sortby);
 		Page<Product> findAll = productRepo.findAll(PageRequest.of(pagenumber, pagesize, sorttype, sortby));
 		return findAll;
 	}

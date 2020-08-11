@@ -207,15 +207,34 @@ public class UserController {
 		
 		List<SellerFollower> sellerFollowers = userService.getSellerFollowers(sellerID);
 		
+		
 		return sellerFollowers;
 		
 		}
+	
+	@GetMapping("/followedsellers/{userid}")
+	public List<SellerFollower> getFollowed(@PathVariable int userid) {
+		
+		List<SellerFollower> sellerFollowers = userService.getFollowed(userid);
+		
+		
+		return sellerFollowers;
+		
+		}
+	
+	
 	@PostMapping("/addFollower")
 	public SellerFollower addSellerFollwer(@RequestBody SellerFollower follower) {
 		
 		SellerFollower addedFollower = userService.addSellerFollwer(follower);
 		
 		return addedFollower;
+	}
+	
+	@DeleteMapping("/removeFollwer/{sellerid}/{followerid}")
+	public int removeSellerFollower(@PathVariable int sellerid, @PathVariable int followerid) {
+		
+		return userService.removeSellerFollower(sellerid,followerid);
 	}
 	
 	//@Cacheable(value="defaultCache", key="#userid")

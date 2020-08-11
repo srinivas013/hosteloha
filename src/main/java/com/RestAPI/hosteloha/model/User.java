@@ -1,13 +1,18 @@
 package com.RestAPI.hosteloha.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -52,7 +57,8 @@ public class User {
 	private Date updated_at;
 	
 
-	
+//	@OneToMany(fetch = FetchType.LAZY ,mappedBy = "user")
+//	private List<SellerFollower> sellerfollowers;
 	
 	public User() {
 		super();
@@ -352,6 +358,15 @@ public class User {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	
+
+
+//	public List<SellerFollower> getSellerfollowers() {
+//		return sellerfollowers;
+//	}
+//
+//
+//	public void setSellerfollowers(List<SellerFollower> sellerfollowers) {
+//		this.sellerfollowers = sellerfollowers;
+//	}
 
 }

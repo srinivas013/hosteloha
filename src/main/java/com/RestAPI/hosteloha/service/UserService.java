@@ -219,4 +219,19 @@ public class UserService {
 		int removeFromWishlist = whislistRepo.removeFromWishlist(userid,productid);
 		return removeFromWishlist;
 	}
+
+	public List<SellerFollower> getFollowed(int userid) {
+		
+		List<SellerFollower> FollowedList = sellerFollowerRepo.findByFollowerId(userid);
+		
+		return FollowedList;
+	}
+
+	@Transactional
+	public int removeSellerFollower(int sellerid, int followerid) {
+		
+		int result = sellerFollowerRepo.deleteBySellerIDAndFollowerId(sellerid,followerid);
+		
+		return result;
+	}
 }

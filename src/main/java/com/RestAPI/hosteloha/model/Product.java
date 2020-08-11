@@ -28,7 +28,8 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String product_title;
+	@Column(name = "productTitle")
+	private String productTitle;
 	private String subtitle;
 	private String description;
 	private float selling_price;
@@ -57,7 +58,6 @@ public class Product {
 	@Fetch(FetchMode.JOIN)
 	@BatchSize(size=25)
 	private ProductViews productviews;
-	
 //	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 //	@JoinColumn(name = "id")
 //	@Fetch(FetchMode.JOIN)
@@ -78,14 +78,14 @@ public class Product {
 
 
 
-	public Product(int id, String product_title, String subtitle, String description, float selling_price,
+	public Product(int id, String productTitle, String subtitle, String description, float selling_price,
 			float cost_price, String currency, int quantity, String product_state, int category_id, int users_id,
 			int condition_id, int delivery_format_id, int payment_option_id, int selling_format_id,
 			Timestamp inserted_at, Timestamp updated_at, List<ProductImage> productimages, ProductViews productviews,
 			Category category) {
 		super();
 		this.id = id;
-		this.product_title = product_title;
+		this.productTitle = productTitle;
 		this.subtitle = subtitle;
 		this.description = description;
 		this.selling_price = selling_price;
@@ -118,11 +118,11 @@ public class Product {
 	}
 
 	public String getProduct_title() {
-		return product_title;
+		return productTitle;
 	}
 
-	public void setProduct_title(String product_title) {
-		this.product_title = product_title;
+	public void setProduct_title(String productTitle) {
+		this.productTitle = productTitle;
 	}
 
 	public String getSubtitle() {
