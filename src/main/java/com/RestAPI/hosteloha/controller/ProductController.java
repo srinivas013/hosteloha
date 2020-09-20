@@ -3,6 +3,7 @@ package com.RestAPI.hosteloha.controller;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.hibernate.annotations.Parameter;
@@ -46,6 +47,13 @@ public class ProductController {
 		
 		List<Product> allProducts = productService.getAllProducts();
 		return allProducts;
+	}
+	
+	@GetMapping("/products/{productid}")
+	public Optional<Product> getProductById(@PathVariable int productid) {
+		System.out.println(productid);
+		Optional<Product> product = productService.getProductById(productid);
+		return product;
 	}
 	
 	@PostMapping("/add_product")

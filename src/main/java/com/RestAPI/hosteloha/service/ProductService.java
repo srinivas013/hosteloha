@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -366,6 +367,11 @@ public class ProductService {
 		return findAllByCategory;
 		}
 		
+	}
+
+	public Optional<Product> getProductById(int productid) {
+		 Optional<Product> product = productRepo.findById(productid);	
+		return product;
 	}
 
 	
