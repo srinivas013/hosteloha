@@ -21,6 +21,8 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 //@SequenceGenerator(name="seq", initialValue=100000, allocationSize=900000)
 public class Product {
@@ -39,13 +41,16 @@ public class Product {
 	private String product_state;
 	@JsonIgnore
 	private int category_id;
+	@Column(name = "usersId")
 	private int users_id;
 	private int condition_id;
 	private int delivery_format_id;
 	private int payment_option_id;
 	private int selling_format_id;
+	@ApiModelProperty(hidden = true)
 	@Column(insertable=false, updatable=false)
 	private Timestamp inserted_at;
+	@ApiModelProperty(hidden = true)
 	@Column(insertable=false, updatable= false)
 	private Timestamp updated_at;
 	

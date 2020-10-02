@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,12 +23,13 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(hidden = true)
+	@Column(insertable=false,updatable = false)
 	private int id;
 	private int roles_id;
 	private int user_privacy_id;
 	private long phone;
 	private String email;
+	@JsonIgnore
 	@Column(name="password")
 	private String password;
 	@Column(name="first_name")

@@ -25,6 +25,7 @@ import com.RestAPI.hosteloha.DAO.AllCategoryList;
 import com.RestAPI.hosteloha.DAO.ProductImageInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductOutputDAO;
+import com.RestAPI.hosteloha.model.Cart;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryList;
 import com.RestAPI.hosteloha.model.CategorySubFilter;
@@ -201,7 +202,23 @@ public class ProductController {
 		return allProductsByPages;
 	}
 
-
+	@GetMapping("/{userid}/products")
+	public List<Product> getProductsOfUser(@PathVariable int userid) {
+		List<Product> productsOfUser = productService.getProductsOfUser(userid);
+		return productsOfUser;
+	}
+	
+	@PostMapping("/product/addToCart")
+	public Cart addToCart(@RequestBody Cart cart) {
+		Cart savedcart = productService.addToCart(cart);
+		return savedcart;
+	}
+	
+	@GetMapping("/{userid}/cartproducts")
+	public List<Cart> getUserCartProducts(@PathVariable int userid) {
+		List<Cart> userCartProducts = productService.getUserCartProducts(userid);
+		return userCartProducts;
+	}
 }
 	
 	

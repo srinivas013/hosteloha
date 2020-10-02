@@ -23,6 +23,7 @@ import com.RestAPI.hosteloha.DAO.AllCategoryList;
 import com.RestAPI.hosteloha.DAO.ProductImageInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductInputDAO;
 import com.RestAPI.hosteloha.DAO.ProductOutputDAO;
+import com.RestAPI.hosteloha.model.Cart;
 import com.RestAPI.hosteloha.model.Category;
 import com.RestAPI.hosteloha.model.CategoryFilter;
 import com.RestAPI.hosteloha.model.CategoryList;
@@ -35,6 +36,7 @@ import com.RestAPI.hosteloha.model.ProductViews;
 import com.RestAPI.hosteloha.model.UserProductWishlist;
 import com.RestAPI.hosteloha.model.ViewsHour;
 import com.RestAPI.hosteloha.repository.AllCategoryListRepository;
+import com.RestAPI.hosteloha.repository.CartRepository;
 import com.RestAPI.hosteloha.repository.CategoryFilterRepository;
 import com.RestAPI.hosteloha.repository.CategoryRepository;
 import com.RestAPI.hosteloha.repository.CategorySubFilterRepository;
@@ -74,6 +76,8 @@ public class ProductService {
 	private ProductImageRepository productimagerepo;
 	@Autowired
 	private ProductOutputRepository productoutputrepo;
+	@Autowired
+	private CartRepository cartrepo;
 
 
 	public List<Product> getAllProducts() {
@@ -372,6 +376,23 @@ public class ProductService {
 	public Optional<Product> getProductById(int productid) {
 		 Optional<Product> product = productRepo.findById(productid);	
 		return product;
+	}
+
+	public List<Product> getProductsOfUser(int userid) {
+		List<Product> userproducts = productRepo.findByUsersId(userid);
+		return userproducts;
+	}
+
+	public Cart addToCart(Cart cart) {
+		
+		Cart savedcart = cartrepo.save(cart);
+		return savedcart;
+	}
+
+	public List<Cart> getUserCartProducts(int userid) {
+		List<Cart> usercartproducts = cartrepo.findByUserId(userid);
+		return usercartproducts;
+		
 	}
 
 	

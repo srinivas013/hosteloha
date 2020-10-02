@@ -40,5 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("select p from Product p inner join Category c on p.category_id=c.id inner join ProductViews as v on p.id=v.product_id "
 			+ "where c.category_name=:category order by v.views_count desc" )
 	Page<Product> findByProductProductViewsViews_count(@Param("category")String category, Pageable pageable);
+
+	@Query(value = "select * from Product where users_id= :userid", nativeQuery = true)
+	List<Product> findByUsersId(@Param("userid") int userid);
 	
 }
